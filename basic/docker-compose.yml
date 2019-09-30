@@ -1,0 +1,13 @@
+version: '3.6'
+
+services:
+  redis:
+    image: redis:5.0.6-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    entrypoint: ['redis-server']
+    command: ['/usr/local/etc/redis/redis.conf']
+    volumes:
+      - './redis.conf:/usr/local/etc/redis/redis.conf'  # configuration
+      - './data:/data'  # presistent

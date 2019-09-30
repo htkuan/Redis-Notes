@@ -95,3 +95,35 @@ redis 實作 HA 的機制為 sentinel，利用 sentinel 來監控 master 服務�
   # 在查看 master 狀態，變成 slave
   docker exec redis-master redis-cli INFO replication
   ```
+
+# [Cluster](https://redis.io/topics/cluster-tutorial)
+
+## docker
+* create redis cluster (版本 5 以上才支援，4 以下要去載 ruby client)
+  ```bash
+  docker exec -it redis-node1 \
+    redis-cli --cluster create 172.19.0.2:6379 172.19.0.3:6379 \
+    172.19.0.4:6379 172.19.0.5:6379 172.19.0.6:6379 172.19.0.7:6379 \
+    --cluster-replicas 1
+  # yes
+  # ...
+  # [OK] All nodes agree about slots configuration.
+  # >>> Check for open slots...
+  # >>> Check slots coverage...
+  # [OK] All 16384 slots covered.
+  ```
+* node 狀態
+  ```bash
+  docker exec redis-node1 redis-cli cluster nodes
+  ```
+* 讀寫
+  ```bash
+  docker exec redis-node1 redis-cli -c SET k1 v1
+  docker exec redis-node2 redis-cli -c SET k2 v2
+  docker exec redis-node3 redis-cli -c SET k3 v3
+  docker exec redis-node4 redis-cli -c SET k4 v4
+  docker exec redis-node5 redis-cli -c GET k2
+  docker exec redis-node6 redis-cli -c GET k3
+  ```
+
+to be continued...

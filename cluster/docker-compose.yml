@@ -1,0 +1,69 @@
+version: '3.6'
+
+services: 
+  node1:
+    image: redis:5.0.6-alpine
+    container_name: redis-node1
+    command: ['/usr/local/etc/redis/redis.conf']
+    volumes:
+      - './config/redis.conf:/usr/local/etc/redis/redis.conf'
+      - './data/node1:/data'
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.2
+  node2:
+    image: redis:5.0.6-alpine
+    container_name: redis-node2
+    command: ['/usr/local/etc/redis/redis.conf']
+    volumes:
+      - './config/redis.conf:/usr/local/etc/redis/redis.conf'
+      - './data/node2:/data'
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.3
+  node3:
+    image: redis:5.0.6-alpine
+    container_name: redis-node3
+    command: ['/usr/local/etc/redis/redis.conf']
+    volumes:
+      - './config/redis.conf:/usr/local/etc/redis/redis.conf'
+      - './data/node3:/data'
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.4
+  node4:
+    image: redis:5.0.6-alpine
+    container_name: redis-node4
+    command: ['/usr/local/etc/redis/redis.conf']
+    volumes:
+      - './config/redis.conf:/usr/local/etc/redis/redis.conf'
+      - './data/node4:/data'
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.5
+  node5:
+    image: redis:5.0.6-alpine
+    container_name: redis-node5
+    command: ['/usr/local/etc/redis/redis.conf']
+    volumes:
+      - './config/redis.conf:/usr/local/etc/redis/redis.conf'
+      - './data/node5:/data'
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.6
+  node6:
+    image: redis:5.0.6-alpine
+    container_name: redis-node6
+    command: ['/usr/local/etc/redis/redis.conf']
+    volumes:
+      - './config/redis.conf:/usr/local/etc/redis/redis.conf'
+      - './data/node6:/data'
+    networks:
+      extnetwork:
+        ipv4_address: 172.19.0.7
+
+networks:
+  extnetwork:
+    ipam:
+      config:
+      - subnet: 172.19.0.0/16

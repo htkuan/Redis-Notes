@@ -35,3 +35,26 @@ version:
   ```bash
   docker exec -it redis redis-cli INFO
   ```
+
+# master-slave
+
+## docker
+* 查看 replication 狀態
+  ```bash
+  docker exec redis-master redis-cli INFO replication
+  docker exec redis-slave1 redis-cli INFO replication
+  docker exec redis-slave2 redis-cli INFO replication
+  ```
+* 讀寫測試
+  ```bash
+  docker exec redis-master redis-cli SET key value
+  # OK
+  docker exec redis-master redis-cli GET key
+  # value
+  docker exec redis-slave1 redis-cli GET key
+  # value
+  docker exec redis-slave2 redis-cli GET key
+  # value
+  docker exec redis-slave2 redis-cli set key2 value2
+  # READONLY You can't write against a read only replica.
+  ```

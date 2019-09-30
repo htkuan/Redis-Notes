@@ -1,0 +1,20 @@
+version: '3.6'
+
+services: 
+  master:
+    image: redis:5.0.6-alpine
+    container_name: redis-master
+    volumes:
+      - './data/master:/data'
+  slave1:
+    image: redis:5.0.6-alpine
+    container_name: redis-slave1
+    command: ['--slaveof', 'redis-master', '6379']
+    volumes:
+      - './data/slave1:/data'
+  slave2:
+    image: redis:5.0.6-alpine
+    container_name: redis-slave2
+    command: ['--slaveof', 'redis-master', '6379']
+    volumes:
+      - './data/slave2:/data'

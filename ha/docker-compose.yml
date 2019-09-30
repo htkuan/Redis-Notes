@@ -1,0 +1,41 @@
+version: '3.6'
+
+services: 
+  master:
+    image: redis:5.0.6-alpine
+    container_name: redis-master
+    volumes:
+      - './data/master:/data'
+  slave1:
+    image: redis:5.0.6-alpine
+    container_name: redis-slave1
+    command: ['--slaveof', 'redis-master', '6379']
+    volumes:
+      - './data/slave1:/data'
+  slave2:
+    image: redis:5.0.6-alpine
+    container_name: redis-slave2
+    command: ['--slaveof', 'redis-master', '6379']
+    volumes:
+      - './data/slave2:/data'
+  sentinel1:
+    image: redis:5.0.6-alpine
+    container_name: redis-sentinel1
+    entrypoint: ['redis-sentinel']
+    command: ['/usr/local/etc/redis/sentinel.conf']
+    volumes:
+      - './config/sentinel1.conf:/usr/local/etc/redis/sentinel.conf'
+  sentinel2:
+    image: redis:5.0.6-alpine
+    container_name: redis-sentinel2
+    entrypoint: ['redis-sentinel']
+    command: ['/usr/local/etc/redis/sentinel.conf']
+    volumes:
+      - './config/sentinel2.conf:/usr/local/etc/redis/sentinel.conf'
+  sentinel3:
+    image: redis:5.0.6-alpine
+    container_name: redis-sentinel3
+    entrypoint: ['redis-sentinel']
+    command: ['/usr/local/etc/redis/sentinel.conf']
+    volumes:
+      - './config/sentinel3.conf:/usr/local/etc/redis/sentinel.conf'
